@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import './App.css'
 import TaskCounter from './components/TaskCounter'
 import TaskList from './components/TaskList'
@@ -9,13 +10,19 @@ import calendarIcon from './assets/calendar_icon.png'
 import upcomingIcon from './assets/upcoming_icon.png'
 
 function App() {
-  const tasks = [
+  const [tasks, setTasks] = useState([
     { id: 1, text: 'Call Mom', completed: false },
     { id: 2, text: 'Buy the new issue of Scientific American', completed: false },
     { id: 3, text: 'Return the textbook to Josie', completed: true },
     { id: 4, text: 'Buy the new album by Rake', completed: false },
     { id: 5, text: 'Buy a gift card for Dad', completed: false },
-  ]
+  ])
+
+  function handleToggle(id) {
+    setTasks(tasks.map(task =>
+      task.id === id ? { ...task, completed: !task.completed } : task
+    ))
+  }
 
   return (
     <>
@@ -62,7 +69,7 @@ function App() {
         <main className="main-content">
           <section className="task-section" aria-labelledby="inbox-heading">
             <h1 id="inbox-heading">Inbox</h1>
-            <TaskList tasks={tasks} />
+            <TaskList tasks={tasks} onToggle={handleToggle} />
             <TaskForm />
           </section>
         </main>
