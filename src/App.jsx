@@ -17,6 +17,7 @@ function App() {
     { id: 4, text: 'Buy the new album by Rake', completed: false },
     { id: 5, text: 'Buy a gift card for Dad', completed: false },
   ])
+  const [filter, setFilter] = useState('all') // NEW: which filter is active
 
   function handleToggle(id) {
     setTasks(tasks.map(task =>
@@ -31,6 +32,13 @@ function App() {
   function handleAdd(text) {
     setTasks([...tasks, { id: Date.now(), text: text, completed: false }])
   }
+
+  // NEW: the tasks to show, worked out from the filter
+  const visibleTasks = tasks.filter(task => {
+    if (filter === 'active') return !task.completed
+    if (filter === 'completed') return task.completed
+    return true
+  })
 
   return (
     <>
@@ -77,7 +85,17 @@ function App() {
         <main className="main-content">
           <section className="task-section" aria-labelledby="inbox-heading">
             <h1 id="inbox-heading">Inbox</h1>
-            <TaskList tasks={tasks} onToggle={handleToggle} onDelete={handleDelete} />
+
+            {/* NEW: filter buttons */}
+            <div className="filters">
+              <button type="button" className={filter === 'all' ? 'active' : ''} onClick={() => setFilter('all')}>All</button>
+              <span>|</span>
+              <button type="button" className={filter === 'active' ? 'active' : ''} onClick={() => setFilter('active')}>Active</button>
+              <span>|</span>
+              <button type="button" className={filter === 'completed' ? 'active' : ''} onClick={() => setFilter('completed')}>Completed</button>
+            </div>
+
+            <TaskList tasks={visibleTasks} onToggle={handleToggle} onDelete={handleDelete} />
             <TaskForm onAdd={handleAdd} />
           </section>
         </main>
