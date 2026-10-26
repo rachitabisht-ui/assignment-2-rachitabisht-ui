@@ -186,7 +186,7 @@ body {
 }
 
 /* Custom circular radio button (no images) */
-.task-item input[type="radio"] {
+.task-item input[type="checkbox"] {
   appearance: none;
   width: 18px;
   height: 18px;
@@ -198,18 +198,78 @@ body {
 }
 
 /* Filled center when selected */
-.task-item input[type="radio"]:checked {
+.task-item input[type="checkbox"]:checked {
   background-color: #7e7d79;
   box-shadow: inset 0 0 0 3px #ffffff;
 }
 
 /* Visible outline for keyboard users */
-.task-item input[type="radio"]:focus-visible {
+.task-item input[type="checkbox"]:focus-visible {
   outline: 2px solid #dc4c3e;
   outline-offset: 2px;
 }
 
 /* ========== RESPONSIVE STYLES ========== */
+/* Completed task: grey, struck-through text */
+.task-item.completed label {
+  color: #7e7d79;
+  text-decoration: line-through;
+}
+
+/* Completed task: filled red circle */
+.task-item input[type="checkbox"]:checked {
+  background-color: #dc4c3e;
+  border-color: #dc4c3e;
+  box-shadow: none;
+}
+/* Delete button: plain ✕ at the right end, shown on hover */
+.task-item button {
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: #7e7d79;
+  cursor: pointer;
+  opacity: 0;
+}
+
+.task-item:hover button {
+  opacity: 1;
+}
+
+.task-item button:hover {
+  color: #dc4c3e;
+}
+
+/* Add-task form: full-width row matching the task list */
+.task-form {
+  display: flex;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.task-form input {
+  flex: 1;
+  border: none;
+  padding: 4px 0;
+}
+
+.task-form input:focus {
+  outline: none;
+}
+
+.task-form button {
+  background-color: #dc4c3e;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 12px;
+  cursor: pointer;
+}
+
+.task-form button:hover {
+  background-color: #b83c30;
+}
 
 @media (max-width: 480px) {
   /* Hide the left navigation on small screens */
