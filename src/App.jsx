@@ -24,6 +24,14 @@ function App() {
     ))
   }
 
+  function handleDelete(id) {
+    setTasks(tasks.filter(task => task.id !== id))
+  }
+
+  function handleAdd(text) {
+    setTasks([...tasks, { id: Date.now(), text: text, completed: false }])
+  }
+
   return (
     <>
       <header className="main-header">
@@ -69,8 +77,8 @@ function App() {
         <main className="main-content">
           <section className="task-section" aria-labelledby="inbox-heading">
             <h1 id="inbox-heading">Inbox</h1>
-            <TaskList tasks={tasks} onToggle={handleToggle} />
-            <TaskForm />
+            <TaskList tasks={tasks} onToggle={handleToggle} onDelete={handleDelete} />
+            <TaskForm onAdd={handleAdd} />
           </section>
         </main>
       </div>

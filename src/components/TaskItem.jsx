@@ -1,4 +1,4 @@
-function TaskItem({ task, onToggle }) {
+function TaskItem({ task, onToggle, onDelete }) {
   return (
     <li className={task.completed ? 'task-item completed' : 'task-item'}>
       <input
@@ -8,7 +8,7 @@ function TaskItem({ task, onToggle }) {
         onChange={() => onToggle(task.id)}
       />
       <label htmlFor={`task-${task.id}`}>{task.text}</label>
-      <button type="button" aria-label="Delete task">✕</button>
+      <button type="button" aria-label="Delete task" onClick={() => onDelete(task.id)}>✕</button>
     </li>
   )
 }
